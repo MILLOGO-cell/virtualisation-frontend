@@ -1,0 +1,63 @@
+/* ConfirmationModal.module.css */
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    width: 80%;
+    max-width: 500px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.modal h2 {
+    margin-bottom: 15px;
+    color: #4a7c59; /* Couleur du titre */
+}
+
+.modal p {
+    margin-bottom: 20px;
+    color: #333;  
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.confirmButton, .cancelButton {
+    background: #4a7c59; /* Couleur pour le bouton Confirmer */
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.cancelButton {
+    background: #e63946; /* Couleur pour le bouton Annuler */
+}
+
+.confirmButton:hover {
+    background: #357a4c; /* Teinte plus sombre pour le bouton Confirmer */
+}
+
+.cancelButton:hover {
+    background: #c82333; /* Teinte plus sombre pour le bouton Annuler */
+}

@@ -1,0 +1,71 @@
+.containerWrapper{
+    height: 100vh;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f8f5e4; /* Couleur de fond douce */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-family: 'Merriweather', serif; /* Police de caractères avec un style classique */
+   margin-top: 24px;
+}
+
+.title {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+    color: #5d4037; /* Couleur de titre avec une teinte marron */
+    text-align: center;
+    border-bottom: 2px solid #d7ccc8; /* Ligne de séparation */
+    padding-bottom: 10px;
+}
+
+.text {
+    font-size: 1.2em;
+    line-height: 1.6;
+    color: #3e2723; /* Couleur de texte marron foncé */
+    margin-bottom: 10px;
+}
+
+.text strong {
+    color: #795548; /* Couleur de texte accentuée */
+}
+
+.button {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #8d6e63; /* Couleur de fond du bouton */
+    color: #ffffff; /* Couleur du texte du bouton */
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s ease;
+    text-decoration: none; /* Remove underline */
+}
+
+.button:hover {
+    background-color: #6d4c41; /* Couleur de fond du bouton au survol */
+}
+
+@media (max-width: 600px) {
+    .container {
+        padding: 10px;
+    }
+
+    .title {
+        font-size: 2em;
+    }
+
+    .text {
+        font-size: 1em;
+    }
+
+    .button {
+        width: 100%; /* Largeur du bouton pour les petits écrans */
+        text-align: center;
+    }
+}
