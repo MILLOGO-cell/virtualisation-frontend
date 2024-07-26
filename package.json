@@ -10,8 +10,11 @@
   },
   "dependencies": {
     "axios": "^1.7.2",
-    "next": "14.2.5",
+    "next": "^14.2.5",
     "react": "^18",
     "react-dom": "^18"
+  },
+  "devDependencies": {
+    "@next/swc-win32-x64-msvc": "^14.2.5"
   }
 }
