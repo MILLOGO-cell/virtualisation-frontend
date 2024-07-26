@@ -6,19 +6,18 @@ import styles from "./page.module.css";
 import Head from "next/head";
 import ConfirmationModal from "@/components/confirmation/confirmationModal";
 import { useRouter } from "next/navigation";
-import { getBooks, createBook } from "../services/api";
+import { getBooks, createBook, getCategories } from "../services/api";
 
 export default function Livres() {
   const router = useRouter();
   const [books, setBooks] = useState([]);
+  const [categories, setCategories] = useState([]);
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState("");
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-  // const [newBook, setNewBook] = useState({ title: '', author: '', category: '', status: '' });
   const [bookToDelete, setBookToDelete] = useState(null);
 
-  // Fonction pour filtrer les livres
   const filteredBooks = books.filter(
     (book) =>
       (book.title.toLowerCase().includes(search.toLowerCase()) ||
@@ -33,7 +32,7 @@ export default function Livres() {
   const openAddModal = () => setIsAddModalOpen(true);
   const closeAddModal = () => {
     setIsAddModalOpen(false);
-    setNewBook({ title: "", author: "", category: "", status: "" }); // Réinitialiser le formulaire
+    setNewBook({ title: "", author: "", category: "", status: "" });
   };
 
   const openDeleteModal = (book) => {
@@ -47,7 +46,6 @@ export default function Livres() {
   };
 
   const handleConfirmDelete = () => {
-    // Logique pour supprimer le livre
     setBooks(books.filter((book) => book.id !== bookToDelete.id));
     closeDeleteModal();
   };
@@ -56,7 +54,7 @@ export default function Livres() {
     title: "",
     author: "",
     category: "",
-    status: "Disponible", // État par défaut
+    status: "Disponible",
   });
 
   const handleChange = (e) => {
@@ -74,7 +72,17 @@ export default function Livres() {
       }
     };
 
+    const fetchCategories = async () => {
+      try {
+        const categoriesData = await getCategories();
+        setCategories(categoriesData);
+      } catch (error) {
+        console.error("Error fetching categories:", error);
+      }
+    };
+
     fetchBooks();
+    fetchCategories();
   }, []);
 
   const handleAddBook = async (e) => {
@@ -198,14 +206,19 @@ export default function Livres() {
                 </label>
                 <label>
                   Catégorie
-                  <input
-                    type="text"
+                  <select
                     name="category"
                     value={newBook.category}
                     onChange={handleChange}
-                  />
+                  >
+                    <option value="">Sélectionner une catégorie</option>
+                    {categories.map((category) => (
+                      <option key={category.id} value={category.name}>
+                        {category.name}
+                      </option>
+                    ))}
+                  </select>
                 </label>
-                {/* Champ état masqué ou en lecture seule */}
                 <input type="hidden" name="status" value={newBook.status} />
                 <div style={{ display: "flex", justifyContent: "flex-end" }}>
                   <button
