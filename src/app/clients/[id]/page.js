@@ -1,9 +1,9 @@
 "use client";
 
+import { getClient } from "@/app/services/api";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import styles from "./page.module.css";
-import { getClient } from "@/app/services/api";
 
 const DetailClient = () => {
   const { id } = useParams();
@@ -18,6 +18,7 @@ const DetailClient = () => {
         try {
           const clientData = await getClient(id);
           setClient(clientData);
+          console.log(client)
         } catch (error) {
           setError("Failed to fetch client details");
           console.error("Failed to fetch client details", error);
@@ -39,17 +40,15 @@ const DetailClient = () => {
       <div className={styles.container}>
         <h1 className={styles.title}>Détails du Client</h1>
         <p className={styles.text}>
-          <strong>Prénom:</strong> {client.firstName}
+          <strong>Prénom:</strong> {client.firstname}
         </p>
         <p className={styles.text}>
-          <strong>Nom:</strong> {client.lastName}
+          <strong>Nom:</strong> {client.lastname}
         </p>
         <p className={styles.text}>
-          <strong>Date de Création:</strong> {client.createdDate}
+          <strong>Date de naissance:</strong> {client.birthday}
         </p>
-        <p className={styles.text}>
-          <strong>Téléphone:</strong> {client.phone}
-        </p>
+       
         <button onClick={() => router.back()} className={styles.button}>
           Retour
         </button>

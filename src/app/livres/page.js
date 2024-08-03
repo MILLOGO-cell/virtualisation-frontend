@@ -1,12 +1,11 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import Image from "next/image";
-import styles from "./page.module.css";
-import Head from "next/head";
 import ConfirmationModal from "@/components/confirmation/confirmationModal";
+import Head from "next/head";
 import { useRouter } from "next/navigation";
-import { getBooks, createBook, getCategories } from "../services/api";
+import { useEffect, useState } from "react";
+import { createBook, deleteBook, getBooks, getCategories } from "../services/api";
+import styles from "./page.module.css";
 
 export default function Livres() {
   const router = useRouter();
@@ -17,17 +16,20 @@ export default function Livres() {
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [bookToDelete, setBookToDelete] = useState(null);
+  const [error, setError] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const filteredBooks = books.filter(
     (book) =>
       (book.title.toLowerCase().includes(search.toLowerCase()) ||
         book.author.toLowerCase().includes(search.toLowerCase()) ||
-        book.category.toLowerCase().includes(search.toLowerCase())) &&
+        book.category.name.toLowerCase().includes(search.toLowerCase())) &&
       (filter === "" ||
         book.author.toLowerCase().includes(filter.toLowerCase()) ||
-        book.category.toLowerCase().includes(filter.toLowerCase()) ||
-        book.status.toLowerCase().includes(filter.toLowerCase()))
+        book.category.name.toLowerCase().includes(filter.toLowerCase())  
+         )
   );
+
 
   const openAddModal = () => setIsAddModalOpen(true);
   const closeAddModal = () => {
@@ -45,17 +47,26 @@ export default function Livres() {
     setBookToDelete(null);
   };
 
-  const handleConfirmDelete = () => {
-    setBooks(books.filter((book) => book.id !== bookToDelete.id));
-    closeDeleteModal();
+  const handleConfirmDelete = async () => {
+    try {
+      await deleteBook(bookToDelete.id);  
+      setBooks(books.filter((book) => book.id !== bookToDelete.id));  
+      closeDeleteModal();
+    } catch (error) {
+      console.error("Erreur lors de la suppression du livre:", error);
+      setError("Erreur lors de la suppression du livre.");
+    }
   };
 
   const [newBook, setNewBook] = useState({
     title: "",
     author: "",
-    category: "",
+    category_id: "",
+    datePub: "",  
+    description: "",  
     status: "Disponible",
   });
+  
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -67,6 +78,7 @@ export default function Livres() {
       try {
         const booksData = await getBooks();
         setBooks(booksData);
+        
       } catch (error) {
         console.error("Error fetching books:", error);
       }
@@ -94,6 +106,7 @@ export default function Livres() {
       setBooks([...books, createdBook]);
       closeAddModal();
     } catch (error) {
+      console.error("Erreur lors de la création du livre:", error);
       setError("Erreur lors de la création du livre.");
     } finally {
       setIsLoading(false);
@@ -148,10 +161,10 @@ export default function Livres() {
           <tbody>
             {filteredBooks.map((book) => (
               <tr key={book.id}>
-                <td>{book.title}</td>
-                <td>{book.author}</td>
-                <td>{book.category}</td>
-                <td>{book.status}</td>
+                <td>{book?.title}</td>
+                <td>{book?.author}</td>
+                <td>{book?.category.name}</td>
+                <td>{book?.status}</td>
                 <td>
                   <button
                     className={`${styles.actionButton} ${styles.viewButton}`}
@@ -205,20 +218,43 @@ export default function Livres() {
                   />
                 </label>
                 <label>
+                  Description
+                  <input
+                    type="text"
+                    name="description"
+                    value={newBook.description}
+                    onChange={handleChange}
+                  />
+                </label>
+
+                <label>
+                  Date de publication
+                  <input
+                    type="date"
+                    name="datePub"
+                    value={newBook.datePub}
+                    onChange={handleChange}
+                  />
+                </label>
+
+                
+                
+                <label>
                   Catégorie
                   <select
-                    name="category"
-                    value={newBook.category}
+                    name="category_id"
+                    value={newBook.category_id}
                     onChange={handleChange}
                   >
                     <option value="">Sélectionner une catégorie</option>
                     {categories.map((category) => (
-                      <option key={category.id} value={category.name}>
+                      <option key={category.id} value={category.id}>
                         {category.name}
                       </option>
                     ))}
                   </select>
                 </label>
+               
                 <input type="hidden" name="status" value={newBook.status} />
                 <div style={{ display: "flex", justifyContent: "flex-end" }}>
                   <button

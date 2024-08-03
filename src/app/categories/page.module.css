@@ -1,240 +1,272 @@
 .container {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    padding: 20px;
-    background-color: #f1f1f1; /* Couleur de fond légère pour le container */
-  }
-  
-  .header {
-    text-align: center;
-    margin-bottom: 20px;
-  }
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+  background-color: #f1f1f1; 
+}
 
-  .header h1 {
-    color: #4a7c59; /* Couleur du titre */
-  }
-  
-  .main {
-    flex: 1;
-  }
-  
-  .controls {
-    display: flex;
-    flex-direction: row;
-    margin-bottom: 20px;
-    justify-content: space-between;
-    align-items: center;
-    align-content: center;
-  }
-  
-  .button {
-    background-color: #4a7c59; /* Couleur verte bibliothèque */
-    color: #fff;
-    border: none;
-    padding: 10px;
-    border-radius: 5px;
-    margin-bottom: 10px;
-    cursor: pointer;
-    width: 150px; /* Largeur fixe pour les boutons */
-    text-align: center;
-  }
-  
-  .searchInput  {
-    margin-top: 10px;
-    padding: 10px;
-    border-radius: 5px;
-    border: 1px solid #ddd;
-    background-color: #fff; /* Fond blanc pour les inputs */
-    color: #333; /* Couleur du texte des inputs */
-    width: 100%; /* Occupe toute la largeur disponible */
-  }
+.form {
+  max-width: 600px;
+  gap: 16px;
+}
 
-  .filterSelect {
-    margin-top: 10px;
-    padding: 10px;
-    border-radius: 5px;
-    border: 1px solid #ddd;
-    background-color: #fff;  
-    color: #333;  
-    width: 100%;  
-  }
-  
-  .controlsInput {
-    display: flex;
-    gap: 10px;
-    min-width: 550px;
-  }
-  .table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 20px;
-  }
-  
-  .table th, .table td {
-    padding: 10px;
-    text-align: left;
-    border: 1px solid #ddd;
-    color: #4a7c59;
-  }
-  
-  .table th {
-    background-color: #4a7c59; /* Couleur verte bibliothèque */
-    color: #fff;
-  }
-  
-  .table td:last-child {
-    max-width: 100px; /* Largeur automatique pour la colonne des actions */
-  }
+.header {
+  text-align: center;
+  margin-bottom: 20px;
+}
 
-  .actionButton {
-    color: #fff;
-    border: none;
-    padding: 5px 10px;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-right: 5px;
-    width: auto; /* Largeur automatique pour les boutons d'action */
-    text-align: center;
-  }
-  
-  .viewButton {
-    background-color: #0070f3; /* Bleu pour le bouton Voir */
-  }
-  
-  .editButton {
-    background-color: #4a90e2; /* Bleu clair pour le bouton Modifier */
-  }
-  
-  .deleteButton {
-    background-color: #e63946; /* Rouge pour le bouton Supprimer */
-  }
-  
-  .viewButton:hover {
-    background-color: #005bb5; /* Teinte plus sombre pour le survol du bouton Voir */
-  }
-  
-  .editButton:hover {
-    background-color: #357abd; /* Teinte plus sombre pour le survol du bouton Modifier */
-  }
-  
-  .deleteButton:hover {
-    background-color: #c82333; /* Teinte plus sombre pour le survol du bouton Supprimer */
-  }
+.header h1 {
+  color: #4a7c59;  
+}
 
-  .pagination {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
-  }
-  
-  .modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000; /* Assurez-vous que le modal est au-dessus des autres éléments */
+.main {
+  flex: 1;
+}
+
+.controls {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 20px;
+  justify-content: space-between;
+  align-items: center;
+  align-content: center;
+  gap: 24px;
+}
+
+.button {
+  background-color: #4a7c59;  
+  color: #fff;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  width: 150px;  
+  text-align: center;
+  gap: 24px;
+}
+
+
+.buttonCancel {
+  background-color: #fc0808; 
+  color: #fff;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  width: 150px; 
+  text-align: center;
+}
+.buttonWrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  align-content: center;
+  margin-top: 36px;
+  width: 100%;
+  max-width: 650px;
+  gap: 16px;
+}
+
+.searchInput  {
+  margin-top: 10px;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  background-color: #fff;  
+  color: #333;  
+  width: 100%;  
+  margin: 12px 0px;
+}
+
+.filterSelect {
+  margin-top: 10px;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  background-color: #fff;  
+  color: #333;  
+  width: 100%;  
+}
+
+.controlsInput {
+  display: flex;
+  gap: 10px;
+  min-width: 550px;
+}
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+.table th, .table td {
+  padding: 10px;
+  text-align: left;
+  border: 1px solid #ddd;
+  color: #4a7c59;
+}
+
+.table th {
+  background-color: #4a7c59; /* Couleur verte bibliothèque */
+  color: #fff;
+}
+
+.table td:last-child {
+  max-width: 100px; /* Largeur automatique pour la colonne des actions */
+}
+
+.actionButton {
+  color: #fff;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-right: 5px;
+  width: auto; /* Largeur automatique pour les boutons d'action */
+  text-align: center;
+}
+
+.viewButton {
+  background-color: #0070f3; /* Bleu pour le bouton Voir */
+}
+
+.editButton {
+  background-color: #4a90e2; /* Bleu clair pour le bouton Modifier */
+}
+
+.deleteButton {
+  background-color: #e63946; /* Rouge pour le bouton Supprimer */
+}
+
+.viewButton:hover {
+  background-color: #005bb5; /* Teinte plus sombre pour le survol du bouton Voir */
+}
+
+.editButton:hover {
+  background-color: #357abd; /* Teinte plus sombre pour le survol du bouton Modifier */
+}
+
+.deleteButton:hover {
+  background-color: #c82333; /* Teinte plus sombre pour le survol du bouton Supprimer */
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* Assurez-vous que le modal est au-dessus des autres éléments */
 }
 
 .modalContent {
-    background: #f8f5e4;
-    padding: 30px;
-    border-radius: 10px;
-    width: 80%;
-    max-width: 600px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    font-family: 'Merriweather', serif;
+  background: #f8f5e4;
+  padding: 30px;
+  border-radius: 10px;
+  width: 80%;
+  max-width: 600px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  font-family: 'Merriweather', serif;
 }
 
 .modalContent h2 {
-    text-align: center;
-    color: #5d4037;
-    margin-bottom: 20px;
+  text-align: center;
+  color: #5d4037;
+  margin-bottom: 20px;
 }
 
 .modalContent form label {
-    display: block;
-    font-size: 1.1em;
-    color: #3e2723;
-    margin-bottom: 10px;
+  display: block;
+  font-size: 1.1em;
+  color: #3e2723;
+  margin-bottom: 10px;
 }
 
 .modalContent form input,
 .modalContent form select {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 20px;
-    border: 1px solid #d7ccc8;
-    border-radius: 5px;
-    font-size: 1em;
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #d7ccc8;
+  border-radius: 5px;
+  font-size: 1em;
 }
 
 .modalContent form button {
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 1em;
-    transition: background-color 0.3s ease;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1em;
+  transition: background-color 0.3s ease;
 }
 
 .closeButton {
-    background-color: #e63946; /* Couleur rouge pour annuler */
-    color: #fff;
-    margin-right: 10px;
-    width: 120px; /* Largeur fixe pour le bouton fermer */
+  background-color: #e63946; /* Couleur rouge pour annuler */
+  color: #fff;
+  margin-right: 10px;
+  width: 120px; /* Largeur fixe pour le bouton fermer */
 }
 
 .closeButton:hover {
-    background-color: #d62839;
+  background-color: #d62839;
 }
 
 .saveButton {
-    background-color: #4a7c59; /* Couleur verte pour enregistrer */
-    color: #fff;
-    width: 120px; /* Largeur fixe pour le bouton enregistrer */
+  background-color: #4a7c59; /* Couleur verte pour enregistrer */
+  color: #fff;
+  width: 120px; /* Largeur fixe pour le bouton enregistrer */
 }
 
 .saveButton:hover {
-    background-color: #3a6b4f;
+  background-color: #3a6b4f;
 }
 
 @media (max-width: 600px) {
-    .modalContent {
-        width: 90%;
-    }
+  .modalContent {
+      width: 90%;
+  }
 
-    .modalContent form label,
-    .modalContent form input,
-    .modalContent form select,
-    .modalContent form button {
-        font-size: 0.9em;
-    }
+  .modalContent form label,
+  .modalContent form input,
+  .modalContent form select,
+  .modalContent form button {
+      font-size: 0.9em;
+  }
 }
 
-  
-  .footer {
-    /* background-color: #4a4a4a; */
-    color: #000;
-    padding: 1rem;
-    text-align: center;
-  }
+
+.footer {
+  /* background-color: #4a4a4a; */
+  color: #000;
+  padding: 1rem;
+  text-align: center;
+}
 
 
-  
-  
-  @media (max-width: 768px) {
-    .controls {
-      flex-direction: column;
-    }
-    
-    .searchInput, .filterSelect {
-      width: 100%;
-    }
+
+
+@media (max-width: 768px) {
+  .controls {
+    flex-direction: column;
   }
   
+  .searchInput, .filterSelect {
+    width: 100%;
+  }
+}

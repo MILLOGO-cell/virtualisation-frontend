@@ -1,5 +1,6 @@
 "use client";
 
+import { getCategory, updateCategory } from '@/app/services/api';
 import { useParams, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import styles from './page.module.css';
@@ -8,24 +9,24 @@ const ModifierCategorie = () => {
     const router = useRouter();
     const params = useParams();
     const { id } = params;
-    
+
     const initialCategory = {
-        name: 'Nom de la Catégorie'
+        name: '',
     };
-    
+
     const [category, setCategory] = useState(initialCategory);
+    const [error, setError] = useState(null);
 
     useEffect(() => {
-        // Simuler la récupération des données statiques en fonction de l'ID
         if (id) {
             const fetchCategoryDetails = async () => {
-                // Ici, nous utilisons des données statiques au lieu de faire une requête API
-                const staticData = {
-                    1: { name: 'Catégorie 1' },
-                    2: { name: 'Catégorie 2' },
-                    // Ajoutez plus de catégories si nécessaire
-                };
-                setCategory(staticData[id] || initialCategory);
+                try {
+                    const categoryData = await getCategory(id);
+                    setCategory(categoryData);
+                } catch (error) {
+                    console.error("Failed to fetch category details", error);
+                    setError("Failed to fetch category details");
+                }
             };
 
             fetchCategoryDetails();
@@ -34,20 +35,25 @@ const ModifierCategorie = () => {
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setCategory(prevState => ({ ...prevState, [name]: value }));
+        setCategory((prevState) => ({ ...prevState, [name]: value }));
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        // Logique pour mettre à jour les détails de la catégorie (actuellement juste une console log)
-        console.log('Catégorie mise à jour:', category);
-        router.back();
+        try {
+            await updateCategory(id, category);
+            router.back();
+        } catch (error) {
+            console.error("Failed to update category", error);
+            setError("Failed to update category");
+        }
     };
 
     return (
         <div className={styles.containerWrapper}>
             <div className={styles.container}>
                 <h1 className={styles.title}>Modifier la Catégorie</h1>
+                {error && <p className={styles.error}>{error}</p>}
                 <form onSubmit={handleSubmit}>
                     <label className={styles.label}>
                         Nom

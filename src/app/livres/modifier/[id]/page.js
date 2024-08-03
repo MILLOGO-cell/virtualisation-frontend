@@ -1,15 +1,15 @@
 "use client";
 
+import { getBook, updateBook } from "@/app/services/api";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import styles from "./page.module.css";
-import { getBook, updateBook } from "@/app/services/api";
 
 const ModifierLivre = () => {
   const router = useRouter();
   const params = useParams();
   const { id } = params;
-
+  const {category_id, setCategory_id}=useState()
   const [book, setBook] = useState({
     title: "",
     author: "",
@@ -27,8 +27,8 @@ const ModifierLivre = () => {
           const bookData = await getBook(id);
           setBook(bookData);
         } catch (error) {
-          setError("Failed to fetch book details");
-          console.error("Failed to fetch book details", error);
+          setError("Erreur s'est produite");
+          console.error("Erreurs'est produite", error);
         } finally {
           setLoading(false);
         }
@@ -46,8 +46,14 @@ const ModifierLivre = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await updateBook(id, book);
-      console.log("Book updated:", book);
+      await updateBook(id, {
+        title: book.book.title,
+        author: book.book.author,
+        description: book.book.description,
+        datePub: book.book.datePub,
+        category_id: book.book.category.id,  
+        // status: book.book.status,
+      });
       router.back();
     } catch (error) {
       console.error("Failed to update book", error);
@@ -68,7 +74,7 @@ const ModifierLivre = () => {
             <input
               type="text"
               name="title"
-              value={book.title}
+              value={book.book.title}
               onChange={handleChange}
               className={styles.input}
             />
@@ -78,7 +84,7 @@ const ModifierLivre = () => {
             <input
               type="text"
               name="author"
-              value={book.author}
+              value={book.book.author}
               onChange={handleChange}
               className={styles.input}
             />
@@ -88,7 +94,7 @@ const ModifierLivre = () => {
             <input
               type="text"
               name="category"
-              value={book.category}
+              value={book.book.category.name}
               onChange={handleChange}
               className={styles.input}
             />

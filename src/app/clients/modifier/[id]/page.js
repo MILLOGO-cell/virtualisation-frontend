@@ -1,23 +1,22 @@
 "use client";
 
+import { getClient, updateClient } from "@/app/services/api";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import styles from "./page.module.css";
-import { getClient, updateClient } from "@/app/services/api";
 
 const ModifierClient = () => {
   const router = useRouter();
-  const params = useParams();
-  const { id } = params;
+  const { id } = useParams();
 
   const initialClient = {
-    firstName: "",
-    lastName: "",
-    createdDate: "",
-    phone: "",
+    firstname: "",
+    lastname: "",
+    birthday: "",
   };
 
   const [client, setClient] = useState(initialClient);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     if (id) {
@@ -27,6 +26,7 @@ const ModifierClient = () => {
           setClient(clientData);
         } catch (error) {
           console.error("Failed to fetch client details", error);
+          setError("Failed to fetch client details");
         }
       };
 
@@ -46,6 +46,7 @@ const ModifierClient = () => {
       router.back();
     } catch (error) {
       console.error("Failed to update client", error);
+      setError("Failed to update client");
     }
   };
 
@@ -53,13 +54,14 @@ const ModifierClient = () => {
     <div className={styles.containerWrapper}>
       <div className={styles.container}>
         <h1 className={styles.title}>Modifier le Client</h1>
+        {error && <p className={styles.error}>{error}</p>}
         <form onSubmit={handleSubmit}>
           <label className={styles.label}>
             Prénom
             <input
               type="text"
-              name="firstName"
-              value={client.firstName}
+              name="firstname"
+              value={client.firstname}
               onChange={handleChange}
               className={styles.input}
             />
@@ -68,23 +70,22 @@ const ModifierClient = () => {
             Nom
             <input
               type="text"
-              name="lastName"
-              value={client.lastName}
+              name="lastname"
+              value={client.lastname}
               onChange={handleChange}
               className={styles.input}
             />
           </label>
           <label className={styles.label}>
-            Téléphone
+            Date de naissance
             <input
-              type="text"
-              name="phone"
-              value={client.phone}
+              type="date"
+              name="birthday"
+              value={client.birthday}
               onChange={handleChange}
               className={styles.input}
             />
           </label>
-          <input type="hidden" name="createdDate" value={client.createdDate} />
           <button
             type="button"
             onClick={() => router.back()}
